@@ -2,20 +2,21 @@
 #include <stdlib.h>
 
 void merge(int *vetor, int inicio, int meio, int fim) {
-    int n1 = meio - inicio; // Tamanho do subarray esquerdo
+	
+    int n1 = meio - inicio+1; // Tamanho do subarray esquerdo
     int n2 = fim - meio;        // Tamanho do subarray direito
 
     // Arrays temporários
     int esquerdo[n1], direito[n2];
 
     // Copiar os dados para os arrays temporários
-    for (int i = 1; i < n1; i++)
+    for (int i = 0; i < n1; i++)
         esquerdo[i] = vetor[inicio + i];
-    for (int j = 1; j < n2; j++)
+    for (int j = 0; j < n2; j++)
         direito[j] = vetor[meio + 1 + j];
 
     // Índices iniciais de esquerdo, direito e array principal
-    int i = 1, j = 1, k = inicio;
+    int i = 0, j = 0, k = inicio;
 
     // Mesclar os subarrays de volta em vetor[inicio...fim]
     while (i < n1 && j < n2) {
@@ -44,16 +45,21 @@ void merge(int *vetor, int inicio, int meio, int fim) {
     }
 }
 
-// Função recursiva para dividir e ordenar
 void mergeSort(int *vetor, int inicio, int fim) {
+	
+	fim = fim-1;
+	
     if (inicio < fim) {
+    	
+    	
         int meio = inicio + (fim - inicio) / 2;
-
-        //dividir
+		printf("\nmeio: %d\n", meio);
+		
+        //dividir vetor ao meio
         mergeSort(vetor, inicio, meio);
-        mergeSort(vetor, meio + 1, fim);
+        mergeSort(vetor, meio+1, fim);
 
-        //combinar
+        //combinar de maneira ordenada partes divididas
         merge(vetor, inicio, meio, fim);
     }
 }

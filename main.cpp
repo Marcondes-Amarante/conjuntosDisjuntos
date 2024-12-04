@@ -354,76 +354,85 @@ int main(){
 	
 	//ordenarBubbleSort(conjunto->subconjuntos[1]);
 	//ordenarInsertionSort(conjunto->subconjuntos[1]);
-	printf("\ntam: %d", conjunto->subconjuntos[1][0]);
+	//printf("\ntam: %d", conjunto->subconjuntos[1][0]);
 	//ordenarQuickSort(conjunto->subconjuntos[1], 1, conjunto->subconjuntos[1][0]);
-	mergeSort(conjunto->subconjuntos[1], 2, conjunto->subconjuntos[1][0]);
+	//mergeSort(conjunto->subconjuntos[1], 1, conjunto->subconjuntos[1][0]);
 	
 	exibirVetoresSubconjuntos(conjunto);
 	
 	int opcao;
 	
-	printf("\nEscolha uma opção (1-3):\n");
-    printf("1. encontrar representante\n");
-    printf("2. união de subconjuntos\n");
-    printf("3. ordenar subconjunto\n");
-    printf("Digite sua opção: ");
-    scanf("%d", &opcao);
+	
+	do {
+        printf("\nMenu de opções:\n");
+        printf("1. Buscar representante\n");
+        printf("2. Unir subconjuntos\n");
+        printf("3. Ordenar subconjunto\n");
+        printf("0. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
 
-    switch(opcao) {
-        case 1:
-        	int elem;
-        	int rep;
-        	printf("escolha o elemento do conjunto ao qual deseja busca o representante: ");
-        	scanf("%d", &elem);
-        	
-           	rep = encontrarRepresentante(conjunto, elem);
-           	printf("representante de %d: %d", elem, rep);
-            break;
-        case 2:
-            
-            int elem1;
-            int elem2;
-            
-            printf("ensira o 1° elemento: ");
-            scanf("%d", &elem1);
-            
-            printf("ensira o 2° elemento: ");
-            scanf("%d", &elem2);
-            
-            unirVetoresSubconjuntos(conjunto, elem1, elem2);
-            
-            break;
-        case 3:
-        	int opOrdenacao;
-        	int subconjunto;
-        	
-        	printf("selecione o subconjunto: \n");
-        	scanf("%d", &subconjunto);
-        	
-        	printf("selecione o método de ordenação: \n");
-            printf("1. bubbleSort\n");
-    		printf("2. insertionSort\n");
-    		printf("3. quickSort\n");
-    		printf("4. mergeSort\n");
-    		scanf("%d", &opOrdenacao);
-    		
-    		if(opOrdenacao==1){
-    			ordenarBubbleSort(conjunto->subconjuntos[subconjunto]);
-			}else if(opOrdenacao==2){
-				ordenarInsertionSort(conjunto->subconjuntos[subconjunto]);
-			}else if(opOrdenacao==3){
-				ordenarQuickSort(conjunto->subconjuntos[subconjunto], 1, conjunto->subconjuntos[subconjunto][0]);
-			}else if(opOrdenacao==4){
-				mergeSort(conjunto->subconjuntos[subconjunto], 1, conjunto->subconjuntos[subconjunto][0]);
-			}
-			
-			exibirVetoresSubconjuntos(conjunto);
-    		
-    		
-        default:
-            printf("Opção inválida.\n");
-            break;
-    }
+        switch (opcao) {
+            case 1:
+                int elem;
+                int rep;
+                printf("Escolha o elemento do conjunto ao qual deseja buscar o representante: ");
+                scanf("%d", &elem);
+
+                rep = encontrarRepresentante(conjunto, elem); // Implementar essa função
+                printf("Representante de %d: %d\n", elem, rep);
+                break;
+
+            case 2:
+                int elem1;
+                int elem2;
+
+                printf("Insira o 1° elemento: ");
+                scanf("%d", &elem1);
+
+                printf("Insira o 2° elemento: ");
+                scanf("%d", &elem2);
+
+                unirVetoresSubconjuntos(conjunto, elem1, elem2); // Implementar essa função
+                break;
+
+            case 3:
+                int opOrdenacao;
+                int subconjunto;
+
+                printf("Selecione o subconjunto: ");
+                scanf("%d", &subconjunto);
+
+                printf("Selecione o método de ordenação: \n");
+                printf("1. Bubble Sort\n");
+                printf("2. Insertion Sort\n");
+                printf("3. Quick Sort\n");
+                printf("4. Merge Sort\n");
+                scanf("%d", &opOrdenacao);
+
+                if (opOrdenacao == 1) {
+                    ordenarBubbleSort(conjunto->subconjuntos[subconjunto]); 
+                } else if (opOrdenacao == 2) {
+                    ordenarInsertionSort(conjunto->subconjuntos[subconjunto]); 
+                } else if (opOrdenacao == 3) {
+                    ordenarQuickSort(conjunto->subconjuntos[subconjunto], 1, conjunto->subconjuntos[subconjunto][0]); 
+                } else if (opOrdenacao == 4) {
+                    mergeSort(conjunto->subconjuntos[subconjunto], 1, conjunto->subconjuntos[subconjunto][0]); 
+                }
+
+                exibirVetoresSubconjuntos(conjunto); // Implementar essa função
+                break;
+
+            case 0:
+                printf("Saindo...\n");
+                break;
+
+            default:
+                printf("Opção inválida.\n");
+                break;
+        }
+    } while (opcao != 0);
+    
 	
 	
 	return 0;

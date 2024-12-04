@@ -23,7 +23,6 @@ int particionarVetor(int vetor[], int inicio, int fim) {
     return i + 1; // Retorna o índice do pivô
 }
 
-// Função para ordenar usando QuickSort
 void ordenarQuickSort(int vetor[], int inicio, int fim) {
     if (inicio < fim) {
         int pivo = particionarVetor(vetor, inicio, fim);
