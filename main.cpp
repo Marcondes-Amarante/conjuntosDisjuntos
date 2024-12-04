@@ -354,8 +354,9 @@ int main(){
 	
 	//ordenarBubbleSort(conjunto->subconjuntos[1]);
 	//ordenarInsertionSort(conjunto->subconjuntos[1]);
-	ordenarQuickSort(conjunto->subconjuntos[1], 1, conjunto->subconjuntos[1][0]);
-	//mergeSort(conjunto->subconjuntos[1], 1, conjunto->subconjuntos[1][0]);
+	printf("\ntam: %d", conjunto->subconjuntos[1][0]);
+	//ordenarQuickSort(conjunto->subconjuntos[1], 1, conjunto->subconjuntos[1][0]);
+	mergeSort(conjunto->subconjuntos[1], 2, conjunto->subconjuntos[1][0]);
 	
 	exibirVetoresSubconjuntos(conjunto);
 	
