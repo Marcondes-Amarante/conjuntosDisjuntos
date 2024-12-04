@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 #include "bubbleSort.h"
 #include "insertionSort.h"
@@ -106,8 +107,6 @@ void unirVetoresSubconjuntos(ConjuntosDisjuntos *conjunto, int elem1, int elem2)
 	}
 	
 	int tamElemSubconjuntos = conjunto->subconjuntos[indiceSubconjunto1][0] + conjunto->subconjuntos[indiceSubconjunto2][0];
-	
-	printf("tamConj: %d", tamElemSubconjuntos);
 	
 	
 	//se elemento 1 possuir representante com maior rank copiar todos os elementos de 2 para 1
@@ -255,6 +254,8 @@ char* obterLinhaDinamicamente(FILE *arquivo){
 
 int main(){
 	
+	setlocale(LC_ALL, "portuguese");
+	
 	//instruções de leitura da partiçõa
 	FILE *arquivo;
 	arquivo = fopen("entrada_particao.txt", "r");
@@ -294,12 +295,10 @@ int main(){
 			infoTam = strtok(linha, ",");
 			tam = atoi(infoTam);
 			
-			printf("tam: %d\n", tam);
 			
 			infoTam = strtok(NULL, ",");
 			qtdSubconjuntos = atoi(infoTam);
 			
-			printf("qtd sub: %d\n", qtdSubconjuntos);
 			
 			inicializarConjuntosDisjuntos(&conjunto, tam+1, qtdSubconjuntos);	
 		}
@@ -316,12 +315,10 @@ int main(){
 			conjunto->subconjuntos[indiceLinhaSub][indiceColuna] = primeiroElem;
 			indiceColuna++;
 			
-			printf("1 elem: %d\n", primeiroElem);
 			
 			while ((infoElemSubconjunto = strtok(NULL, ",")) != NULL) {
     			if (strlen(infoElemSubconjunto) > 0) {  // Verifica se o token não é vazio
         			elemento = atoi(infoElemSubconjunto);
-        			printf("elemento: %d\n", elemento);
         			
         			conjunto->subconjuntos[indiceLinhaSub][indiceColuna] = elemento;
         			
@@ -354,59 +351,78 @@ int main(){
 	}
 	
 	
-	printf("exibindo primeiro subconjunto: ");
-	for(int i=1; i<conjunto->subconjuntos[0][0]; i++){
-		printf("%d, ", conjunto->subconjuntos[0][i]);
-	}
 	
-	printf("\n");
-	
-	printf("exibindo segundo subconjunto: ");
-	for(int i=1; i<conjunto->subconjuntos[1][0]; i++){
-		printf("%d, ", conjunto->subconjuntos[1][i]);
-	}
-	
-	printf("\n");
-	
-	printf("exibindo terceiro subconjunto: ");
-	for(int i=1; i<conjunto->subconjuntos[2][0]; i++){
-		printf("%d, ", conjunto->subconjuntos[2][i]);
-	}
-	
-	printf("\n");
-	
-	
-	
-	exibirSubconjuntosPorRepComun(conjunto, 7, tam);
-	
-	//uniaoSubconjuntos(&conjunto, 1, 5);
-	
-	exibirSubconjuntosPorRepComun(conjunto, 5, tam);
-	
-	int rep=encontrarRepresentante(conjunto, 5);
-	
-	printf("%d\n", rep);
-	
-	
-	int indiceSubconjunto = retornarIndiceSubconjunto(conjunto, 1);
-	
-	printf("indice subconjunto: %d\n", indiceSubconjunto);
+	//ordenarBubbleSort(conjunto->subconjuntos[1]);
+	//ordenarInsertionSort(conjunto->subconjuntos[1]);
+	ordenarQuickSort(conjunto->subconjuntos[1], 1, conjunto->subconjuntos[1][0]);
+	//mergeSort(conjunto->subconjuntos[1], 1, conjunto->subconjuntos[1][0]);
 	
 	exibirVetoresSubconjuntos(conjunto);
 	
-	unirVetoresSubconjuntos(conjunto, 1, 7);
-	unirVetoresSubconjuntos(conjunto, 1, 5);
+	int opcao;
 	
-	printf("quantidade de elementos do vetor restante: %d", conjunto->subconjuntos[0][0]);
-	//ordenarBubbleSort(conjunto->subconjuntos[0]);
-	//ordenarInsertionSort(conjunto->subconjuntos[0]);
-	
-	printf("\ntam: %d\n", conjunto->subconjuntos[0][0]);
-	
-	//ordenarQuickSort(conjunto->subconjuntos[0], 1, conjunto->subconjuntos[0][0]);
-	mergeSort(conjunto->subconjuntos[0], 1, conjunto->subconjuntos[0][0]);
-	
-	exibirVetoresSubconjuntos(conjunto);
+	printf("\nEscolha uma opção (1-3):\n");
+    printf("1. encontrar representante\n");
+    printf("2. união de subconjuntos\n");
+    printf("3. ordenar subconjunto\n");
+    printf("Digite sua opção: ");
+    scanf("%d", &opcao);
+
+    switch(opcao) {
+        case 1:
+        	int elem;
+        	int rep;
+        	printf("escolha o elemento do conjunto ao qual deseja busca o representante: ");
+        	scanf("%d", &elem);
+        	
+           	rep = encontrarRepresentante(conjunto, elem);
+           	printf("representante de %d: %d", elem, rep);
+            break;
+        case 2:
+            
+            int elem1;
+            int elem2;
+            
+            printf("ensira o 1° elemento: ");
+            scanf("%d", &elem1);
+            
+            printf("ensira o 2° elemento: ");
+            scanf("%d", &elem2);
+            
+            unirVetoresSubconjuntos(conjunto, elem1, elem2);
+            
+            break;
+        case 3:
+        	int opOrdenacao;
+        	int subconjunto;
+        	
+        	printf("selecione o subconjunto: \n");
+        	scanf("%d", &subconjunto);
+        	
+        	printf("selecione o método de ordenação: \n");
+            printf("1. bubbleSort\n");
+    		printf("2. insertionSort\n");
+    		printf("3. quickSort\n");
+    		printf("4. mergeSort\n");
+    		scanf("%d", &opOrdenacao);
+    		
+    		if(opOrdenacao==1){
+    			ordenarBubbleSort(conjunto->subconjuntos[subconjunto]);
+			}else if(opOrdenacao==2){
+				ordenarInsertionSort(conjunto->subconjuntos[subconjunto]);
+			}else if(opOrdenacao==3){
+				ordenarQuickSort(conjunto->subconjuntos[subconjunto], 1, conjunto->subconjuntos[subconjunto][0]);
+			}else if(opOrdenacao==4){
+				mergeSort(conjunto->subconjuntos[subconjunto], 1, conjunto->subconjuntos[subconjunto][0]);
+			}
+			
+			exibirVetoresSubconjuntos(conjunto);
+    		
+    		
+        default:
+            printf("Opção inválida.\n");
+            break;
+    }
 	
 	
 	return 0;

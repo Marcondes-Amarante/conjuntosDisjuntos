@@ -4,7 +4,7 @@
 
 int particionarVetor(int *vetor, int inicio, int fim) {
     int pivo = vetor[fim]; // Escolhendo o último elemento como pivô
-    int i = inicio - 1;    // Índice do menor elemento
+    int i = inicio-1;    // Índice do menor elemento
 
     for (int j = inicio; j < fim; j++) { 
         if (vetor[j] <= pivo) {
@@ -29,7 +29,7 @@ void ordenarQuickSort(int *vetor, int inicio, int fim) {
         int pivo = particionarVetor(vetor, inicio, fim);
 
         // Ordenando os elementos antes e depois do pivô
-        ordenarQuickSort(vetor, inicio, pivo - 1);
+        ordenarQuickSort(vetor, inicio, pivo-1);
         ordenarQuickSort(vetor, pivo + 1, fim);
     }
 }
