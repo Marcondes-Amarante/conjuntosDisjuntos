@@ -364,6 +364,7 @@ int main(){
 	
 	
 	do {
+		
         printf("\nMenu de opções:\n");
         printf("1. Buscar representante\n");
         printf("2. Unir subconjuntos\n");
@@ -432,8 +433,7 @@ int main(){
                 break;
         }
     } while (opcao != 0);
-    
-	
+   
 	
 	return 0;
 }
